@@ -2,241 +2,276 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Expense Split</title>
+<title>Happy Birthday Mitra ❤️</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    padding: 10px;
-}
-.container {
-    max-width: 480px;
-    margin: auto;
-    background: #fff;
-    padding: 15px;
-    border-radius: 10px;
-}
-h1, h2 {
-    text-align: center;
-}
-label {
-    font-weight: bold;
-    font-size: 14px;
-}
-input, select, button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    margin-bottom: 12px;
-    font-size: 15px;
-}
-button {
-    background: #007bff;
+    background: radial-gradient(circle at top, #16001f, #000);
+    height: 100vh;
+    overflow: hidden;
     color: white;
-    border: none;
-    border-radius: 6px;
+    font-family: 'Segoe UI', sans-serif;
 }
-table {
+
+.page {
+    position: absolute;
     width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: opacity 1.5s ease;
 }
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
+
+/* -------- PAGE 1 -------- */
+#page1 {
+    z-index: 2;
+}
+
+.heart-btn {
+    width: 120px;
+    height: 120px;
+    background: crimson;
+    position: relative;
+    transform: rotate(-45deg);
+    cursor: pointer;
+    animation: pulse 1.4s infinite;
+}
+
+.heart-btn::before,
+.heart-btn::after {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: crimson;
+    border-radius: 50%;
+}
+
+.heart-btn::before {
+    top: -60px;
+    left: 0;
+}
+
+.heart-btn::after {
+    left: 60px;
+    top: 0;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1) rotate(-45deg); }
+    50% { transform: scale(1.15) rotate(-45deg); }
+    100% { transform: scale(1) rotate(-45deg); }
+}
+
+.click-text {
+    margin-top: 45px;
+    font-size: 22px;
+    text-decoration: underline;
+    letter-spacing: 2px;
+    color: #ffb6ff;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 5px #ff66ff; }
+    to { text-shadow: 0 0 25px #ff99ff; }
+}
+
+/* -------- PAGE 2 -------- */
+#page2 {
+    opacity: 0;
+}
+
+/* Tree */
+.tree {
+    position: absolute;
+    bottom: 0;
+    width: 20px;
+    height: 0;
+    background: #5b2c06;
+    animation: growTrunk 3s forwards;
+}
+
+@keyframes growTrunk {
+    to { height: 260px; }
+}
+
+.branch {
+    position: absolute;
+    width: 160px;
+    height: 6px;
+    background: #6d3b0f;
+    top: 70px;
+    transform-origin: left;
+    animation: growBranch 2s forwards;
+}
+
+.branch.left {
+    left: 10px;
+    --angle: -30deg;
+    transform: rotate(-30deg) scaleX(0);
+}
+
+.branch.right {
+    right: 10px;
+    transform-origin: right;
+    --angle: 30deg;
+    transform: rotate(30deg) scaleX(0);
+}
+
+@keyframes growBranch {
+    to { transform: rotate(var(--angle)) scaleX(1); }
+}
+
+/* -------- BIG HEART -------- */
+.big-heart {
+    position: absolute;
+    top: 25%;
+    width: 320px;
+    height: 280px;
+    opacity: 0;
+    animation: heartAppear 2s forwards, heartPulse 2.5s infinite;
+    animation-delay: 3.5s;
+}
+
+@keyframes heartAppear {
+    to { opacity: 1; }
+}
+
+@keyframes heartPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.heart-dot {
+    position: absolute;
+    color: pink;
+    animation: twinkle 1.5s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { filter: drop-shadow(0 0 4px white); opacity: 0.8; }
+    to { filter: drop-shadow(0 0 12px hotpink); opacity: 1; }
+}
+
+/* -------- HANDWRITTEN TEXT -------- */
+.wish {
+    position: absolute;
+    bottom: 35px;
+    width: 85%;
     text-align: center;
+    font-family: 'Pacifico', cursive;
+    font-size: 22px;
+    line-height: 1.7;
+    color: #ffd6f5;
+    white-space: pre-line;
 }
-th {
-    background: #007bff;
-    color: white;
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 22px;
+    background: pink;
+    animation: blink 1s infinite;
 }
-.positive { color: green; font-weight: bold; }
-.negative { color: red; font-weight: bold; }
-.delete-btn {
-    background: red;
-    padding: 6px;
-    font-size: 13px;
+
+@keyframes blink {
+    50% { opacity: 0; }
 }
-.hidden { display: none; }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-<h1>Expense Split</h1>
-
-<!-- FRIEND SETUP -->
-<div id="setupSection">
-    <button onclick="showNameInputs()">➕ Add Friends</button>
-    <div id="nameInputs" class="hidden"></div>
-    <button id="saveBtn" class="hidden" onclick="saveFriends()">Save Friends</button>
+<!-- PAGE 1 -->
+<div class="page" id="page1">
+    <div class="heart-btn" onclick="startMagic()"></div>
+    <div class="click-text">Click Here Birthday Queen 👑</div>
 </div>
 
-<!-- MAIN APP -->
-<div id="appSection" class="hidden">
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+    <div class="tree">
+        <div class="branch left"></div>
+        <div class="branch right"></div>
+    </div>
 
-<h2>Add Bill</h2>
+    <div class="big-heart" id="bigHeart"></div>
 
-<label>Subject / Purpose</label>
-<input type="text" id="subject" placeholder="Dinner, Fuel, Trip">
-
-<label>Amount (₹)</label>
-<input type="number" id="amount">
-
-<label>Paid By</label>
-<select id="paidBy"></select>
-
-<label>Split Between</label>
-<select id="friends" multiple></select>
-
-<button onclick="addBill()">Add Bill</button>
-
-<h2>Total Spent: ₹ <span id="totalExpense">0</span></h2>
-
-<h2>Balances</h2>
-<table>
-<thead><tr><th>Name</th><th>₹</th></tr></thead>
-<tbody id="balanceTable"></tbody>
-</table>
-
-<h2>Subject-wise Spending</h2>
-<table>
-<thead><tr><th>Subject</th><th>Total ₹</th></tr></thead>
-<tbody id="subjectTable"></tbody>
-</table>
-
-<h2>Bills</h2>
-<table>
-<thead>
-<tr><th>Subject</th><th>₹</th><th>Paid</th><th>Split</th><th></th></tr>
-</thead>
-<tbody id="billTable"></tbody>
-</table>
-
-<h2>Settlement</h2>
-<table>
-<thead><tr><th>Pays</th><th>Gets</th><th>₹</th></tr></thead>
-<tbody id="settlementTable"></tbody>
-</table>
-
-</div>
+    <div class="wish" id="wishText"></div>
 </div>
 
 <script>
-let friends=[], balances=[], bills=[], totalExpense=0;
-const MAX_FRIENDS = 7;
+const name = "MITRA";
 
-function showNameInputs(){
-    let d=document.getElementById("nameInputs");
-    d.innerHTML="";
-    for(let i=0;i<MAX_FRIENDS;i++){
-        d.innerHTML+=`<input placeholder="Friend ${i+1} name">`;
-    }
-    d.classList.remove("hidden");
-    saveBtn.classList.remove("hidden");
+function startMagic() {
+    document.getElementById('page1').style.opacity = 0;
+    document.getElementById('page2').style.opacity = 1;
+
+    setTimeout(createBigHeart, 3500);
+    setTimeout(typeWish, 5500);
 }
 
-function saveFriends(){
-    friends=[...document.querySelectorAll("#nameInputs input")]
-            .map((i,x)=>i.value||`Friend ${x+1}`);
-    balances=new Array(friends.length).fill(0);
-    setupSection.classList.add("hidden");
-    appSection.classList.remove("hidden");
-    initSelectors();
-    updateBalances();
-}
+/* Create heart shape using math */
+function createBigHeart() {
+    const container = document.getElementById('bigHeart');
+    const colors = ['#ff4d6d','#ff99cc','#ffccff','#ff66ff','#ffd700'];
 
-function initSelectors(){
-    paidBy.innerHTML=`<option value="">Select</option>`;
-    friendsSelect.innerHTML="";
-    friends.forEach((n,i)=>{
-        paidBy.innerHTML+=`<option value="${i}">${n}</option>`;
-        friendsSelect.innerHTML+=`<option value="${i}">${n}</option>`;
-    });
-}
+    for (let t = 0; t < 360; t += 4) {
+        const rad = t * Math.PI / 180;
+        const x = 16 * Math.pow(Math.sin(rad), 3);
+        const y = -(13 * Math.cos(rad) - 5 * Math.cos(2*rad) - 2 * Math.cos(3*rad) - Math.cos(4*rad));
 
-function addBill(){
-    let subject=subjectInput.value||"General";
-    let amt=+amount.value;
-    let payer=paidBy.value;
-    let split=[...friendsSelect.selectedOptions].map(o=>+o.value);
-    if(!amt||payer===""||!split.length){alert("Fill all fields");return;}
-    bills.push({subject,amt,payer,split});
-    subjectInput.value=""; amount.value=""; friendsSelect.selectedIndex=-1;
-    recalc();
-}
+        const dot = document.createElement('div');
+        dot.className = 'heart-dot';
+        dot.innerHTML = '❤';
+        dot.style.left = 160 + x * 10 + 'px';
+        dot.style.top = 140 + y * 10 + 'px';
+        dot.style.color = colors[Math.floor(Math.random() * colors.length)];
+        dot.style.fontSize = Math.random() * 10 + 14 + 'px';
+        dot.style.animationDelay = Math.random() * 2 + 's';
 
-function deleteBill(i){ bills.splice(i,1); recalc(); }
-
-function recalc(){
-    balances.fill(0); totalExpense=0;
-    bills.forEach(b=>{
-        totalExpense+=b.amt;
-        balances[b.payer]+=b.amt;
-        let s=b.amt/b.split.length;
-        b.split.forEach(f=>balances[f]-=s);
-    });
-    totalExpenseSpan.innerText=totalExpense.toFixed(2);
-    updateBalances(); renderBills(); renderSubjects(); settlement();
-}
-
-function updateBalances(){
-    balanceTable.innerHTML="";
-    balances.forEach((b,i)=>{
-        balanceTable.innerHTML+=`
-        <tr><td>${friends[i]}</td>
-        <td class="${b>=0?'positive':'negative'}">₹ ${b.toFixed(2)}</td></tr>`;
-    });
-}
-
-function renderBills(){
-    billTable.innerHTML="";
-    bills.forEach((b,i)=>{
-        billTable.innerHTML+=`
-        <tr>
-        <td>${b.subject}</td><td>${b.amt}</td>
-        <td>${friends[b.payer]}</td>
-        <td>${b.split.map(x=>friends[x]).join(", ")}</td>
-        <td><button class="delete-btn" onclick="deleteBill(${i})">✕</button></td>
-        </tr>`;
-    });
-}
-
-function renderSubjects(){
-    let map={};
-    bills.forEach(b=>map[b.subject]=(map[b.subject]||0)+b.amt);
-    subjectTable.innerHTML="";
-    Object.keys(map).forEach(s=>{
-        subjectTable.innerHTML+=`
-        <tr><td>${s}</td><td>₹ ${map[s].toFixed(2)}</td></tr>`;
-    });
-}
-
-function settlement(){
-    settlementTable.innerHTML="";
-    let d=[],c=[];
-    balances.forEach((b,i)=>{if(b<0)d.push({i,a:-b});if(b>0)c.push({i,a:b});});
-    let i=0,j=0;
-    while(i<d.length&&j<c.length){
-        let p=Math.min(d[i].a,c[j].a);
-        settlementTable.innerHTML+=`
-        <tr><td>${friends[d[i].i]}</td>
-        <td>${friends[c[j].i]}</td><td>₹ ${p.toFixed(2)}</td></tr>`;
-        d[i].a-=p; c[j].a-=p;
-        if(!d[i].a)i++; if(!c[j].a)j++;
+        container.appendChild(dot);
     }
 }
 
-/* shortcuts */
-const paidBy=document.getElementById("paidBy");
-const friendsSelect=document.getElementById("friends");
-const subjectInput=document.getElementById("subject");
-const amount=document.getElementById("amount");
-const totalExpenseSpan=document.getElementById("totalExpense");
+/* Handwritten typing animation */
+const message =
+`Happy Birthday ${name} 🌸
+
+Like this heart grown on a tree of love,
+Every beat whispers your name.
+You bring calm to chaos,
+Light to silence,
+And beauty to moments unseen.
+
+May your life glow endlessly,
+Just like this heart —
+Soft, rare, and full of magic 💖`;
+
+let index = 0;
+function typeWish() {
+    const el = document.getElementById('wishText');
+    if (index < message.length) {
+        el.innerHTML = message.substring(0, index++) + '<span class="cursor"></span>';
+        setTimeout(typeWish, 55);
+    } else {
+        el.innerHTML = message;
+    }
+}
 </script>
 
 </body>
 </html>
+
