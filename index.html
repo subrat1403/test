@@ -1,274 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Happy Birthday Mitra ❤️</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title> Mitra ❤️</title>
+
+<!-- Typewriter Font -->
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Special Elite', cursive;
 }
 
 body {
-    background: radial-gradient(circle at top, #16001f, #000);
-    height: 100vh;
-    overflow: hidden;
-    color: white;
-    font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(120deg, #f2e6ff, #e6d9ff, #f8f0ff);
+  background-size: 300% 300%;
+  animation: gradient 10s ease infinite;
 }
 
+@keyframes gradient {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+/* Hearts */
+.heart {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: red;
+  transform: rotate(45deg);
+  animation: float 4s linear infinite, flash 2s infinite;
+}
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: red;
+  border-radius: 50%;
+}
+.heart::before { top: -6px; left: 0; }
+.heart::after { left: -6px; top: 0; }
+
+@keyframes float {
+  0% {transform: translateY(100vh) rotate(45deg);}
+  100% {transform: translateY(-10vh) rotate(45deg);}
+}
+@keyframes flash {
+  0%,100% {opacity: 0.3;}
+  50% {opacity: 1;}
+}
+
+/* Pages */
 .page {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    transition: opacity 1.5s ease;
+  display: none;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.page.active { display: flex; }
+
+/* Box */
+.box {
+  background: rgba(255,255,255,0.9);
+  border-radius: 25px;
+  padding: 25px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
-/* -------- PAGE 1 -------- */
-#page1 {
-    z-index: 2;
+/* Puppy */
+.puppy {
+  width: 160px;
+  border-radius: 50%;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.05);}
+  100% {transform: scale(1);}
+}
+
+.flash-text {
+  margin-top: 15px;
+  color: #b3005e;
+  font-weight: bold;
+  animation: flash 1.2s infinite;
+}
+
+/* Buttons */
+.heart-btn, .next-btn {
+  margin-top: 25px;
+  padding: 14px 26px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-size: 16px;
+  display: none;
 }
 
 .heart-btn {
-    width: 120px;
-    height: 120px;
-    background: crimson;
-    position: relative;
-    transform: rotate(-45deg);
-    cursor: pointer;
-    animation: pulse 1.4s infinite;
+  background: red;
+  color: white;
 }
 
-.heart-btn::before,
-.heart-btn::after {
-    content: '';
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    background: crimson;
-    border-radius: 50%;
+.next-btn {
+  background: #7b3fe4;
+  color: white;
 }
 
-.heart-btn::before {
-    top: -60px;
-    left: 0;
-}
-
-.heart-btn::after {
-    left: 60px;
-    top: 0;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1) rotate(-45deg); }
-    50% { transform: scale(1.15) rotate(-45deg); }
-    100% { transform: scale(1) rotate(-45deg); }
-}
-
-.click-text {
-    margin-top: 45px;
-    font-size: 22px;
-    text-decoration: underline;
-    letter-spacing: 2px;
-    color: #ffb6ff;
-    animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-    from { text-shadow: 0 0 5px #ff66ff; }
-    to { text-shadow: 0 0 25px #ff99ff; }
-}
-
-/* -------- PAGE 2 -------- */
-#page2 {
-    opacity: 0;
-}
-
-/* Tree */
-.tree {
-    position: absolute;
-    bottom: 0;
-    width: 20px;
-    height: 0;
-    background: #5b2c06;
-    animation: growTrunk 3s forwards;
-}
-
-@keyframes growTrunk {
-    to { height: 260px; }
-}
-
-.branch {
-    position: absolute;
-    width: 160px;
-    height: 6px;
-    background: #6d3b0f;
-    top: 70px;
-    transform-origin: left;
-    animation: growBranch 2s forwards;
-}
-
-.branch.left {
-    left: 10px;
-    --angle: -30deg;
-    transform: rotate(-30deg) scaleX(0);
-}
-
-.branch.right {
-    right: 10px;
-    transform-origin: right;
-    --angle: 30deg;
-    transform: rotate(30deg) scaleX(0);
-}
-
-@keyframes growBranch {
-    to { transform: rotate(var(--angle)) scaleX(1); }
-}
-
-/* -------- BIG HEART -------- */
-.big-heart {
-    position: absolute;
-    top: 25%;
-    width: 320px;
-    height: 280px;
-    opacity: 0;
-    animation: heartAppear 2s forwards, heartPulse 2.5s infinite;
-    animation-delay: 3.5s;
-}
-
-@keyframes heartAppear {
-    to { opacity: 1; }
-}
-
-@keyframes heartPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-.heart-dot {
-    position: absolute;
-    color: pink;
-    animation: twinkle 1.5s infinite alternate;
-}
-
-@keyframes twinkle {
-    from { filter: drop-shadow(0 0 4px white); opacity: 0.8; }
-    to { filter: drop-shadow(0 0 12px hotpink); opacity: 1; }
-}
-
-/* -------- HANDWRITTEN TEXT -------- */
-.wish {
-    position: absolute;
-    bottom: 35px;
-    width: 85%;
-    text-align: center;
-    font-family: 'Pacifico', cursive;
-    font-size: 22px;
-    line-height: 1.7;
-    color: #ffd6f5;
-    white-space: pre-line;
-}
-
-.cursor {
-    display: inline-block;
-    width: 2px;
-    height: 22px;
-    background: pink;
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-    50% { opacity: 0; }
+.big-text {
+  font-size: 28px;
+  color: #7b3fe4;
+  font-weight: bold;
+  animation: flash 1.2s infinite;
 }
 </style>
 </head>
 
 <body>
 
-<!-- PAGE 1 -->
-<div class="page" id="page1">
-    <div class="heart-btn" onclick="startMagic()"></div>
-    <div class="click-text">Click Here Birthday Queen 👑</div>
+<!-- 🎵 Background Music -->
+
+<audio id="myAudio" src="findingher.mp3" loop></audio>
+<button onclick="playAudio()">Play Music</button>
+
+
+<!-- Pages -->
+<div class="page active" id="page1">
+  <img src="IMG_20260203_060714.png" class="puppy" onclick="goToPage(2)">
 </div>
 
-<!-- PAGE 2 -->
 <div class="page" id="page2">
-    <div class="tree">
-        <div class="branch left"></div>
-        <div class="branch right"></div>
-    </div>
+  <div class="box">
+    <img src="IMG_20260203_060714.png" class="puppy" id="puppy2">
+    <div class="flash-text">HAIYEE MITRA..</div>
+    <p id="text2"></p>
+    <button class="heart-btn" id="btn2" onclick="goToPage(3)">❤️</button>
+  </div>
+</div>
 
-    <div class="big-heart" id="bigHeart"></div>
+<div class="page" id="page3">
+  <div class="box">
+    <p id="text3"></p>
+    <button class="heart-btn" id="btn3" onclick="goToPage(4)">❤️</button>
+  </div>
+</div>
 
-    <div class="wish" id="wishText"></div>
+<div class="page" id="page4">
+  <div class="box">
+    <p id="text4"></p>
+    <button class="next-btn" id="btn4" onclick="goToPage(5)">okay! next</button>
+  </div>
+</div>
+
+<div class="page" id="page5">
+  <div class="box">
+    <div class="big-text">For part 2 text me!<br>waiting for your response 💜</div>
+  </div>
 </div>
 
 <script>
-const name = "MITRA";
-
-function startMagic() {
-    document.getElementById('page1').style.opacity = 0;
-    document.getElementById('page2').style.opacity = 1;
-
-    setTimeout(createBigHeart, 3500);
-    setTimeout(typeWish, 5500);
+/* Hearts */
+for(let i=0;i<30;i++){
+  let h=document.createElement('div');
+  h.className='heart';
+  h.style.left=Math.random()*100+'vw';
+  h.style.animationDuration=(5+Math.random()*5)+'s';
+  document.body.appendChild(h);
 }
 
-/* Create heart shape using math */
-function createBigHeart() {
-    const container = document.getElementById('bigHeart');
-    const colors = ['#ff4d6d','#ff99cc','#ffccff','#ff66ff','#ffd700'];
-
-    for (let t = 0; t < 360; t += 4) {
-        const rad = t * Math.PI / 180;
-        const x = 16 * Math.pow(Math.sin(rad), 3);
-        const y = -(13 * Math.cos(rad) - 5 * Math.cos(2*rad) - 2 * Math.cos(3*rad) - Math.cos(4*rad));
-
-        const dot = document.createElement('div');
-        dot.className = 'heart-dot';
-        dot.innerHTML = '❤';
-        dot.style.left = 160 + x * 10 + 'px';
-        dot.style.top = 140 + y * 10 + 'px';
-        dot.style.color = colors[Math.floor(Math.random() * colors.length)];
-        dot.style.fontSize = Math.random() * 10 + 14 + 'px';
-        dot.style.animationDelay = Math.random() * 2 + 's';
-
-        container.appendChild(dot);
-    }
+function playAudio() {
+  document.getElementById("myAudio").play();
 }
 
-/* Handwritten typing animation */
-const message =
-`Happy Birthday ${name} 🌸
+/* Page Nav */
+function goToPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page'+n).classList.add('active');
+  if(n===2) initPage2();
+  if(n===3) typeText(text3, "But for me, feelings aren’t meant to be rushed or announced in a crowd. But I don’t believe in placing my heart in a queue, waiting to be picked. I believe love has a language of its own—soft, personal, and meant to be felt, not forced, and it begins with truth. So before I take another step in my heart, I want to know what lives in yours.", btn3);
+  if(n===4) typeText(text4, "I am certainly of you and it's not just your cute and infectious smile or anything you do, it's not just your laugh or your eyes or that face turning pose that I can't ignore. with you there is something different with you there is something more because my whole life my heart has been trying on speaking a language that no one seems to know... And for the first time ever someone's heart replied and spoke my heart's language. So before I take another step in my heart, I want to know what lives in yours.", btn4);
+}
 
-Like this heart grown on a tree of love,
-Every beat whispers your name.
-You bring calm to chaos,
-Light to silence,
-And beauty to moments unseen.
-
-May your life glow endlessly,
-Just like this heart —
-Soft, rare, and full of magic 💖`;
-
-let index = 0;
-function typeWish() {
-    const el = document.getElementById('wishText');
-    if (index < message.length) {
-        el.innerHTML = message.substring(0, index++) + '<span class="cursor"></span>';
-        setTimeout(typeWish, 55);
-    } else {
-        el.innerHTML = message;
+/* Typewriter */
+function typeText(el, txt, btn){
+  el.innerHTML="";
+  let i=0;
+  let t=setInterval(()=>{
+    el.innerHTML+=txt.charAt(i);
+    i++;
+    if(i>=txt.length){
+      clearInterval(t);
+      btn.style.display="inline-block";
     }
+  },40);
+}
+
+/* Page 2 */
+function initPage2(){
+  let pup=document.getElementById("puppy2");
+  pup.onclick=()=>{
+    pup.style.display="none";
+    typeText(text2, "There’s something I want to say, and I want to say it honestly.... Certainly, when we are talking, something settles in me. The kind of connection that doesn’t shout, but stays. It feels easy… natural, it just flows. Our vibe isn’t accidental- it feels aligned.. I won’t pretend I haven’t imagined moments, I’ve imagined moments with you, not fantasies, but real things... conversations, laughter, presence, cooking your fav dish. I’ve planned feelings, not just dates..", btn2);
+  }
 }
 </script>
 
